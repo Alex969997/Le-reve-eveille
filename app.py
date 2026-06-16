@@ -43,7 +43,7 @@ st.markdown("""
         font-weight: 700;
     }
 </style>
-""", unsafe_allowed_html=True)
+""", unsafe_allow_html=True)
 
 # 3. Sidebar Navigation & Controls
 with st.sidebar:
@@ -79,28 +79,28 @@ with tab_dashboard:
             <div class="metric-title">TOTAL RECORDS</div>
             <div class="metric-value">{stats.total_records:,}</div>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">ACTIVE USERS</div>
             <div class="metric-value">{stats.active_users:,}</div>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
     with col3:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">CONVERSION RATE</div>
             <div class="metric-value">{stats.conversion_rate}%</div>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
     with col4:
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">GROWTH</div>
             <div class="metric-value">+{stats.growth_percentage}%</div>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
 
     st.subheader("Interactive Insights")
     
