@@ -18,23 +18,28 @@ A modern, highly-polished boilerplate codebase displaying a clean separation bet
 
 Follow these steps to run the application locally:
 
-### 1. Create a Virtual Environment
+### 1. Install uv
+
+If you don't have `uv` installed, install it using the official script:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### 2. Install Dependencies
+### 2. Install Dependencies (Optional)
+
+If you want to create a local virtual environment for IDE autocompletion, run:
 
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 ### 3. Run the App
 
+You can run the application directly, and `uv` will automatically manage dependencies and virtual environments:
+
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 Open [http://localhost:8501](http://localhost:8501) in your browser.
