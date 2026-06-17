@@ -189,6 +189,8 @@ if "timing_active" not in st.session_state:
     st.session_state.timing_active = False
 if "timing_action" not in st.session_state:
     st.session_state.timing_action = ""
+if "timing_check_id" not in st.session_state:
+    st.session_state.timing_check_id = 0
 
 # Reset helper
 def reset_game():
@@ -209,11 +211,13 @@ def reset_game():
     
     st.session_state.timing_active = False
     st.session_state.timing_action = ""
+    st.session_state.timing_check_id = 0
 
 # Start a timing skill check sequence
 def trigger_timing_check(action):
     st.session_state.timing_active = True
     st.session_state.timing_action = action
+    st.session_state.timing_check_id += 1
 
 # Action handler helper for standard story choices
 def select_choice(choice):
@@ -387,7 +391,11 @@ with col_narrative:
         
         # Render the custom Streamlit component
         # Streamlit automatically handles bidirectional messaging safely
-        result = timing_slider(action=action, key="timing_slider_widget")
+        result = timing_slider(action=action, key=f"timing_slider_{st.session_state.timing_check_id}", height=185)
+        
+        # DEBUG LOGGING
+        print(f"DEBUG TIMING: id={st.session_state.timing_check_id}, action={action}, result={result}", flush=True)
+        st.write(f"DEBUG: result is {result} (type: {type(result)})")
         
         # If the Javascript component has clicked and returned a result:
         if result is not None:

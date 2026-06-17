@@ -143,6 +143,8 @@
 
         // Inform Streamlit that the component is loaded and ready
         sendToStreamlit("streamlit:componentReady", { apiVersion: 1 });
+        // Set initial frame height to 185px
+        sendToStreamlit("streamlit:setFrameHeight", { height: 185 });
 
         // Handle impact stop click
         stopBtn.addEventListener('click', () => {
