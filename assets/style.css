@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cinzel:wght@500;700;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
+
+/* Apply to body and all standard texts */
+html, body, [data-testid="stAppViewContainer"], .stApp {
+    font-family: 'Outfit', sans-serif !important;
+    background: radial-gradient(circle at 50% 30%, #15102a 0%, #0a0817 60%, #030206 100%) !important;
+    background-attachment: fixed !important;
+    color: #e2e8f0 !important;
+}
+
+/* Make headers look mysterious / fantasy */
+h1, h2, h3, [data-testid="stHeader"] {
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 0.05em !important;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.4) !important;
+    color: #f3e8ff !important;
+}
+
+/* Translucent Header */
+[data-testid="stHeader"] {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* Modern Card Layout for Bordered Containers */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(168, 85, 247, 0.15) !important;
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Style Alert/Info Boxes nicely */
+div[data-testid="stAlert"] {
+    background: rgba(88, 28, 135, 0.1) !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(139, 92, 246, 0.25) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25) !important;
+    color: #f3e8ff !important;
+}
+
+div[data-testid="stAlert"] [data-testid="stMarkdownContainer"], 
+div[data-testid="stAlert"] p {
+    color: #e9d5ff !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+}
+
+/* Style Progress Bars */
+div[data-testid="stProgress"] > div > div > div {
+    background: linear-gradient(90deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) !important;
+}
+
+div[data-testid="stProgress"] {
+    margin-bottom: 1.2rem !important;
+}
+
+div[data-testid="stProgress"] [data-testid="stWidgetLabel"] {
+    color: #e9d5ff !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Style Buttons */
+div.stButton > button {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.18) 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.5) !important;
+    border-radius: 14px !important;
+    color: #f3e8ff !important;
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    padding: 1.15rem 2.3rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 18px rgba(168, 85, 247, 0.15) !important;
+    width: 100% !important;
+    min-height: 4.2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    letter-spacing: 0.03em !important;
+}
+
+div.stButton > button p,
+div.stButton > button span,
+div.stButton > button div {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: #f3e8ff !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+}
+
+div.stButton > button:hover:not(:disabled) {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%) !important;
+    border: 1px solid rgba(192, 132, 252, 0.9) !important;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.5), 0 0 50px rgba(99, 102, 241, 0.25) !important;
+    transform: translateY(-2px) !important;
+    color: #ffffff !important;
+}
+
+div.stButton > button:active:not(:disabled) {
+    transform: translateY(1px) !important;
+}
+
+div.stButton > button:disabled {
+    background: rgba(31, 41, 55, 0.25) !important;
+    border: 1px solid rgba(75, 85, 99, 0.2) !important;
+    color: rgba(156, 163, 175, 0.4) !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* Hover effects for item columns/containers in HUD */
+.hud-item-row {
+    transition: all 0.2s ease !important;
+    padding: 0.4rem !important;
+    border-radius: 8px !important;
+}
+.hud-item-row:hover {
+    background: rgba(168, 85, 247, 0.08) !important;
+}
