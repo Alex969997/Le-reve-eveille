@@ -451,33 +451,7 @@ STORY_NODES = {
         ]
     },
     
-    "puit_potable": {
-        "text": (
-            "Revigoré et l'esprit clair (+30 HP), vous quittez le puits et rejoignez le sentier de la Tour de l'Horloge."
-        ),
-        "image": "well_good",
-        "choices": [
-            {
-                "text": "Avancer vers le Pont des Âmes Suspendues",
-                "next_node": "pont_des_ames"
-            }
-        ]
-    },
-    
-    "puit_poison": {
-        "text": (
-            "Vous vous effondrez en toussant, affaibli par le poison (-30 HP). "
-            "Vous parvenez tant bien que mal à vous traîner jusqu'aux portes de la Tour de l'Horloge."
-        ),
-        "image": "well_bad",
-        "choices": [
-            {
-                "text": "Pénétrer sur le Pont des Âmes Suspendues",
-                "next_node": "pont_des_ames"
-            }
-        ]
-    },
-    
+
     "tour_horloge": {
         "text": (
             "Vous pénétrez dans une immense nef cylindrique ouverte sur le vide étoilé. "
@@ -499,22 +473,7 @@ STORY_NODES = {
         ]
     },
     
-    "combat_horloger": {
-        # Keep this node just in case or for references, but the combat system will bypass it
-        "text": (
-            "Vous tentez d'esquiver le géant ! Mais d'un revers de main colossal, "
-            "l'Horloger vous projette violemment contre un engrenage en rotation (-75 HP). "
-            "Si vos os ne sont pas broyés et que vous respirez encore, vous rampez vers le portail qui scintille..."
-        ),
-        "image": "combat_clockmaker",
-        "choices": [
-            {
-                "text": "Traverser le portail dans un dernier souffle",
-                "next_node": "victoire_force"
-            }
-        ]
-    },
-    
+
     "victoire_plume": {
         "text": (
             "Vous sortez la Plume Stellaire de votre sac pendant le combat. "
@@ -528,18 +487,7 @@ STORY_NODES = {
         "choices": []
     },
     
-    "victoire_parchemin": {
-        "text": (
-            "Vous lisez le paradoxe du Parchemin Lunaire. "
-            "Les engrenages de l'Horloger se bloquent instantanément. "
-            "Le temps se fige tout autour de vous. "
-            "Vous passez sereinement à côté du géant immobile et franchissez le portail céleste. "
-            "Vous avez triomphé par l'intellect !"
-        ),
-        "image": "victory_scroll",
-        "choices": []
-    },
-    
+
     "victoire_licorne": {
         "text": (
             "Vous brandissez la Corne de Licorne. Une lumière pure dissout la corruption de l'Horloger. "
