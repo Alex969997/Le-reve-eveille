@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #0b0f19;
+            background-color: transparent;
             color: #e2e8f0;
             font-family: monospace;
             display: flex;
@@ -62,11 +62,11 @@
             z-index: 10;
         }
         button {
-            background-color: #1e1b4b;
-            color: #a5b4fc;
-            border: 2px solid #4f46e5;
-            border-radius: 6px;
-            font-family: monospace;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
+            color: #f3e8ff;
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            border-radius: 10px;
+            font-family: inherit;
             font-size: 1.1rem;
             font-weight: bold;
             padding: 12px 30px;
@@ -74,12 +74,34 @@
             transition: all 0.2s;
             width: 90%;
             text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
         }
         button:hover {
-            background-color: #4f46e5;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.5) 0%, rgba(168, 85, 247, 0.5) 100%);
+            border: 1px solid rgba(192, 132, 252, 0.8);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
             color: #ffffff;
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.6);
+        }
+        
+        /* Cécité / Voile Onirique (Grey out colors) */
+        body.blind {
+            background-color: #030712;
+        }
+        body.blind .bar-container {
+            background-color: #1f2937; /* Gris sombre uniforme */
+            border-color: #4b5563;
+        }
+        body.blind .zone-orange {
+            background-color: #1f2937;
+        }
+        body.blind .zone-green-light {
+            background-color: #1f2937;
+        }
+        body.blind .zone-target {
+            background-color: #1f2937;
+            border-left: none;
+            border-right: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -96,17 +118,64 @@
     <script>
         let position = 0;
         let direction = 1;
-        let speed = 2.4; // Oscillation speed
+        let speed = 2.4; // Default speed
         let isRunning = true;
         let action = "attack"; // Default value
+        let distortion = false; // Default value
+        let jitter = false; // Target shaking
+        let instability = false; // Unstable random speed variations
+        let frameCount = 0;
+        
+        let targetCenter = 50;
+        let targetWidth = 6;
         
         const cursor = document.getElementById('cursor');
         const stopBtn = document.getElementById('stop-btn');
         
+        function updateZones(offset = 0) {
+            const currentCenter = targetCenter + offset;
+            
+            // Update Target Zone
+            const zoneTarget = document.querySelector('.zone-target');
+            const targetLeft = currentCenter - (targetWidth / 2);
+            zoneTarget.style.left = targetLeft + '%';
+            zoneTarget.style.width = targetWidth + '%';
+            
+            // Update Green Light Zone
+            const zoneGreenLight = document.querySelector('.zone-green-light');
+            const greenWidth = targetWidth * 3.3; // standard ratio (20/6 approx 3.3)
+            const greenLeft = currentCenter - (greenWidth / 2);
+            zoneGreenLight.style.left = Math.max(0, greenLeft) + '%';
+            zoneGreenLight.style.width = Math.min(100 - Math.max(0, greenLeft), greenWidth) + '%';
+            
+            // Update Orange Zone
+            const zoneOrange = document.querySelector('.zone-orange');
+            const orangeWidth = targetWidth * 8.3; // standard ratio (50/6 approx 8.3)
+            const orangeLeft = currentCenter - (orangeWidth / 2);
+            zoneOrange.style.left = Math.max(0, orangeLeft) + '%';
+            zoneOrange.style.width = Math.min(100 - Math.max(0, orangeLeft), orangeWidth) + '%';
+        }
+        
         // Bouncing cursor animation loop at 60fps
         function animate() {
             if (!isRunning) return;
-            position += speed * direction;
+            
+            frameCount++;
+            let currentSpeed = speed;
+            if (distortion) {
+                // Wave speed variation effect: slower at the center, faster at the edges
+                const angle = (position / 100) * Math.PI;
+                currentSpeed = speed * (0.35 + 1.35 * Math.sin(angle));
+            }
+            if (instability) {
+                // Instability effect: speed varies randomly every 15 frames
+                const phase = Math.floor(frameCount / 15);
+                // Pseudo-random multiplier between 0.3 and 2.2 based on phase
+                const randMultiplier = 0.3 + 1.9 * (Math.abs(Math.sin(phase * 997)) % 1.0);
+                currentSpeed = currentSpeed * randMultiplier;
+            }
+            
+            position += currentSpeed * direction;
             if (position >= 100) {
                 position = 100;
                 direction = -1;
@@ -115,6 +184,14 @@
                 direction = 1;
             }
             cursor.style.left = position + '%';
+            
+            // Handle Jitter effect on target zones rendering
+            if (jitter) {
+                // Oscillating shake of ±4%
+                const offset = Math.sin(frameCount * 0.8) * 4;
+                updateZones(offset);
+            }
+            
             requestAnimationFrame(animate);
         }
         requestAnimationFrame(animate);
@@ -130,12 +207,40 @@
 
         // Streamlit listener for data updates sent from Python
         window.addEventListener("message", (event) => {
+            console.log("IFRAME RECEIVED MESSAGE:", JSON.stringify(event.data));
             const data = event.data;
-            if (data && data.isStreamlitMessage && data.type === "streamlit:render") {
-                // Save action argument passed from Python
-                if (data.args && data.args.action) {
-                    action = data.args.action;
+            if (data && data.type === "streamlit:render") {
+                // Save arguments passed from Python
+                if (data.args) {
+                    if (data.args.action) {
+                        action = data.args.action;
+                    }
+                    if (data.args.speed) {
+                        speed = data.args.speed;
+                    }
+                    if (data.args.distortion !== undefined) {
+                        distortion = data.args.distortion;
+                    }
+                    if (data.args.jitter !== undefined) {
+                        jitter = data.args.jitter;
+                    }
+                    if (data.args.instability !== undefined) {
+                        instability = data.args.instability;
+                    }
+                    
+                    // Handle blindness mode class
+                    if (data.args.blind) {
+                        document.body.classList.add('blind');
+                    } else {
+                        document.body.classList.remove('blind');
+                    }
+                    
+                    // Handle dynamic zones resizing and shifting
+                    targetWidth = data.args.target_width || 6;
+                    targetCenter = data.args.target_center || 50;
+                    updateZones(0);
                 }
+                
                 // Inform Streamlit of height requirements
                 sendToStreamlit("streamlit:setFrameHeight", { height: 185 });
             }

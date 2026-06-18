@@ -276,8 +276,8 @@ STORY_NODES = {
                 "next_node": "coffre_nuit"
             },
             {
-                "text": "Prendre le couloir menant à la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Prendre le couloir menant au Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -291,8 +291,8 @@ STORY_NODES = {
         "image": "moon_scroll",
         "choices": [
             {
-                "text": "Rejoindre le couloir de la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Rejoindre le couloir du Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -325,8 +325,8 @@ STORY_NODES = {
                 }
             },
             {
-                "text": "Refermer le couvercle et fuir vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Refermer le couvercle et fuir vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -339,8 +339,8 @@ STORY_NODES = {
         "image": "star_gem",
         "choices": [
             {
-                "text": "Se diriger vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Se diriger vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -353,8 +353,8 @@ STORY_NODES = {
         "image": "chest_trap",
         "choices": [
             {
-                "text": "Fuir vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Fuir vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -382,8 +382,8 @@ STORY_NODES = {
                 "next_node": "puit_des_voeux"
             },
             {
-                "text": "Ignorer l'oiseau en détresse et filer vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Ignorer l'oiseau en détresse et filer vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -399,8 +399,8 @@ STORY_NODES = {
         "image": "hummingbird_rescue",
         "choices": [
             {
-                "text": "Reprendre le chemin vers la Tour de l'Horloge",
-                "next_node": "tour_horloge",
+                "text": "Reprendre le chemin vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames",
                 "effect": {"hp_change": 30}
             }
         ]
@@ -421,27 +421,17 @@ STORY_NODES = {
                 "effect": {"hp_change": 50, "add_item": "Corne de Licorne", "remove_item": "Joyau Stellaire"}
             },
             {
-                "text": "Boire l'eau scintillante du puits",
-                "next_node": "puit_resultat",
-                "random_effect": {
-                    "probabilities": [0.5, 0.5],
-                    "outcomes": [
-                        {
-                            "next_node": "puit_potable",
-                            "hp_change": 30,
-                            "text": "L'eau a un goût d'ambroisie pure. Vos forces sont décuplées (+30 HP) !"
-                        },
-                        {
-                            "next_node": "puit_poison",
-                            "hp_change": -30,
-                            "text": "L'eau brûle votre gorge comme de l'acide liquide (-30 HP) !"
-                        }
-                    ]
+                "text": "Tenter de puiser de l'eau scintillante sans offrande (Voler le Puits)",
+                "next_node": "gardien_puit",
+                "trigger_combat": {
+                    "boss_name": "Le Gardien de Poussière",
+                    "boss_hp": 90,
+                    "win_node": "victoire_gardien"
                 }
             },
             {
-                "text": "Quitter le puits et marcher vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Quitter le puits et marcher vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -455,8 +445,8 @@ STORY_NODES = {
         "image": "unicorn_well",
         "choices": [
             {
-                "text": "Porter la corne sacrée vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Porter la corne sacrée vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -468,8 +458,8 @@ STORY_NODES = {
         "image": "well_good",
         "choices": [
             {
-                "text": "Avancer vers la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Avancer vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -482,8 +472,8 @@ STORY_NODES = {
         "image": "well_bad",
         "choices": [
             {
-                "text": "Pénétrer dans la Tour de l'Horloge",
-                "next_node": "tour_horloge"
+                "text": "Pénétrer sur le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames"
             }
         ]
     },
@@ -502,7 +492,7 @@ STORY_NODES = {
                 "next_node": "victoire_force",
                 "trigger_combat": {
                     "boss_name": "L'Horloger du Temps",
-                    "boss_hp": 150,
+                    "boss_hp": 250,
                     "win_node": "victoire_force"
                 }
             }
@@ -571,5 +561,84 @@ STORY_NODES = {
         ),
         "image": "victory_force",
         "choices": []
+    },
+    
+    "pont_des_ames": {
+        "text": (
+            "Vous débouchez sur le Pont des Âmes Suspendues. C'est un passage étroit fait de cordes dorées "
+            "qui relie deux pics rocheux flottant dans le néant pourpre du Rêve.\n"
+            "Une brume épaisse entoure le pont. Au milieu de la passerelle se dresse une silhouette terrifiante "
+            "aux multiples membres d'ombre et aux yeux de braise : la Chimère des Limbes. Elle bloque le passage.\n"
+            "Sur le côté du pont, une antique stèle runique en pierre de lune est dressée dans le vide."
+        ),
+        "image": "hanging_bridge",
+        "choices": [
+            {
+                "text": "Affronter la Chimère des Limbes (Combat ⚔️)",
+                "next_node": "victoire_chimere",
+                "trigger_combat": {
+                    "boss_name": "La Chimère des Limbes",
+                    "boss_hp": 110,
+                    "win_node": "victoire_chimere"
+                }
+            },
+            {
+                "text": "Insérer l'Emblème des Limbes dans la stèle ancienne",
+                "next_node": "sanctuaire_oublie",
+                "condition": {"required_item": "Emblème des Limbes"}
+            },
+            {
+                "text": "Retourner explorer le Jardin d'engrenages",
+                "next_node": "jardin_engrenages"
+            }
+        ]
+    },
+    
+    "sanctuaire_oublie": {
+        "text": (
+            "À peine insérez-vous l'Emblème dans la stèle qu'elle s'illumine d'un éclat saphir. "
+            "Une brèche spatiale s'ouvre sur le côté du pont, révélant le Sanctuaire Oublié.\n"
+            "C'est une pièce silencieuse, préservée du vent des Limbes. Au centre, sur un autel d'onyx, "
+            "repose une clé métallique sombre entourée d'un champ de force stable : l'Ancre Temporelle.\n"
+            "Vous vous en emparez. Une sensation de calme absolu et de contrôle du temps vous envahit."
+        ),
+        "image": "forgotten_sanctuary",
+        "choices": [
+            {
+                "text": "Retourner sur le Pont des Âmes Suspendues avec l'Ancre",
+                "next_node": "pont_des_ames",
+                "effect": {"add_item": "Ancre Temporelle", "remove_item": "Emblème des Limbes"}
+            }
+        ]
+    },
+    
+    "victoire_chimere": {
+        "text": (
+            "La Chimère des Limbes pousse un cri strident avant de se dissoudre en une volute de fumée violette.\n"
+            "La brume se dissipe et le chemin vers la Tour de l'Horloge est enfin libre."
+        ),
+        "image": "victory_chimera",
+        "choices": [
+            {
+                "text": "Pénétrer dans la Tour de l'Horloge",
+                "next_node": "tour_horloge"
+            }
+        ]
+    },
+    
+    "victoire_gardien": {
+        "text": (
+            "Le Gardien de Poussière se désintègre en un tas de sable doré et d'étoiles éteintes.\n"
+            "Au fond du puits désormais asséché, vous trouvez un objet mystérieux brillant d'une faible lueur bleue : "
+            "l'Emblème des Limbes. Vous le glissez soigneusement dans votre sacoche et reprenez la route."
+        ),
+        "image": "victory_guardian",
+        "choices": [
+            {
+                "text": "Avancer vers le Pont des Âmes Suspendues",
+                "next_node": "pont_des_ames",
+                "effect": {"add_item": "Emblème des Limbes"}
+            }
+        ]
     }
 }
